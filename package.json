@@ -1,0 +1,54 @@
+{
+  "name": "ciderlib",
+  "version": "0.1.0",
+  "description": "Utility functions for hard cider calculations",
+  "keywords": [
+    "cider"
+  ],
+  "main": "lib/index.js",
+  "files": [
+    "*.md",
+    "lib"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "babel src -d lib",
+    "lint": "eslint src test",
+    "jest": "jest --config jest.json",
+    "coverage": "npm run jest -- --coverage",
+    "pretest": "npm run lint",
+    "test": "npm run jest",
+    "prepublish": "npm run build",
+    "preversion": "npm test && npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvolk/ciderlib.git"
+  },
+  "author": {
+    "name": "Michael Volk",
+    "url": "https://github.com/mvolk",
+    "email": "michael@volksys.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mvolk/ciderlib/issues"
+  },
+  "homepage": "https://github.com/mvolk/ciderlib#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-register": "^6.18.0",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "jest": "^18.1.0",
+    "rimraf": "^2.5.4"
+  }
+}

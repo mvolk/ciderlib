@@ -1,0 +1,10 @@
+.idea
+coverage
+src
+test
+.babelrc
+.editorconfig
+.eslintrc
+.gitignore
+.travis.yml
+jest.json

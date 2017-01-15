@@ -1,0 +1,12 @@
+# transpiled/polyfilled source code
+lib
+
+# npm
+node_modules
+npm-debug.log
+
+# code coverage report
+coverage
+
+# IntelliJ
+.idea

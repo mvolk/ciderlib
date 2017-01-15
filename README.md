@@ -1,2 +1,59 @@
-# ciderlib
-Hard cider calculators implemented in JavaScript.
+[![Build Status](https://travis-ci.org/mvolk/ciderlib.svg?branch=master)](https://travis-ci.org/mvolk/ciderlib)
+[![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
+[![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
+
+# CiderLib v0.1.0
+
+JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
+functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
+
+## Status
+
+This is an early work in progress. Here's the task list:
+
+* [X] Project setup
+* [X] Relevant properties of water
+* [ ] Conversion functions for units of measurement
+    * [ ] Temperature
+    * [ ] Mass
+    * [ ] Volume
+    * [ ] Sugar content (Brix, SG, qualitative categories)
+* [ ] Hydrometer reading correction function
+* [ ] Potential alcohol calculator functions
+* [ ] Chaptalization (addition of sugar) calculator functions
+* [ ] Relevant properties of classes of apple juice
+
+Most of the above has already been implemented in the
+[CiderRef Java SDK](https://github.com/mvolk/cider-sdk-java), so the
+magnitude of work ahead is not as great as it might otherwise seem.
+
+Collaborators welcome.
+
+## Installation
+
+```Shell
+npm install ciderlib --save
+```
+
+## API
+
+### water
+
+Properties of pure water under standard pressure. See API documentation below.
+
+#### water.BOILING_POINT
+
+The boiling point of pure water, under standard pressure, in &deg;C.
+
+#### water.FREEZING_POINT
+
+The freezing point of pure water, under standard pressure, in &deg;C.
+
+#### water.density(temperature)
+
+Calculates the density of pure water under standard pressure at a given
+temperature.
+
+* `temperature` - (Number between 0-100) Temperature of the water in &deg;C.
+
+Returns density in grams per liter (g/L), accurate to within ±0.1 g/L.
