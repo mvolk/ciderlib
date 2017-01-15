@@ -18,7 +18,6 @@
     "coverage": "npm run jest -- --coverage",
     "pretest": "npm run lint",
     "test": "npm run jest",
-    "prepublish": "npm run build",
     "preversion": "npm test && npm run clean && npm run build"
   },
   "repository": {
