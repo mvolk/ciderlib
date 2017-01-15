@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/mvolk/ciderlib.svg?branch=master)](https://travis-ci.org/mvolk/ciderlib)
+[![Coverage Status](https://coveralls.io/repos/mvolk/ciderlib/badge.svg?branch=master)](https://coveralls.io/r/mvolk/ciderlib?branch=master)
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 

@@ -16,6 +16,7 @@
     "lint": "eslint src test",
     "jest": "jest --config jest.json",
     "coverage": "npm run jest -- --coverage",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "pretest": "npm run lint",
     "test": "npm run jest",
     "preversion": "npm test && npm run clean && npm run build"
@@ -42,6 +43,7 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-3": "^6.17.0",
     "babel-register": "^6.18.0",
+    "coveralls": "^2.11.15",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
