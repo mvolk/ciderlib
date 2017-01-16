@@ -19,7 +19,7 @@ This is an early work in progress. Here's the task list:
     * [ ] Mass
     * [ ] Volume
     * [ ] Sugar content (Brix, SG, qualitative categories)
-* [ ] Hydrometer reading correction function
+* [X] Hydrometer reading correction function
 * [ ] Potential alcohol calculator functions
 * [ ] Chaptalization (addition of sugar) calculator functions
 * [ ] Relevant properties of classes of apple juice
