@@ -3,7 +3,7 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v0.1.0
+# CiderLib v0.2.0
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
@@ -15,11 +15,11 @@ This is an early work in progress. Here's the task list:
 * [X] Project setup
 * [X] Relevant properties of water
 * [ ] Conversion functions for units of measurement
-    * [ ] Temperature
+    * [X] Temperature
     * [ ] Mass
     * [ ] Volume
     * [ ] Sugar content (Brix, SG, qualitative categories)
-* [ ] Hydrometer reading correction function
+* [X] Hydrometer reading correction function
 * [ ] Potential alcohol calculator functions
 * [ ] Chaptalization (addition of sugar) calculator functions
 * [ ] Relevant properties of classes of apple juice
@@ -37,6 +37,30 @@ npm install ciderlib --save
 ```
 
 ## API
+
+### temperature
+
+Units of temperature measurement and logic to convert between units.
+
+#### temperature.CELSIUS
+
+#### temperature.FAHRENHEIT
+
+#### temperature.supportedUnits
+
+An array of all supported temperature units.
+
+#### temperature(temperature, units).in(newUnits)
+
+Converts temperatures between units of measurement.
+
+* `temperature` - A temperature value in the given units.
+* `units` - The units in which `temperature` is expressed. Must be one of the
+            `supportedUnits` - `CELSUIS` or `FAHRENHEIT`.
+* `newUnits` - The units in which you want to express `temperature`. Must be one of the
+            `supportedUnits` - `CELSUIS` or `FAHRENHEIT`.
+
+Returns the equivalent of `temperature` in `units` in `newUnits`.
 
 ### water
 
