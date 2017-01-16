@@ -38,6 +38,24 @@ npm install ciderlib --save
 
 ## API
 
+### Hydrometer
+
+Models a hydrometer with a known calibration temperature.
+
+#### constructor(calibrationTemperature)
+
+* `temperature` - The calibration temperature of the hydrometer in &deg;C.
+
+#### correctedReading(reading, temperature)
+
+Corrects a hydrometer's specific gravity reading for temperature.
+
+* `reading` - The specific gravity read from they hydrometer.
+* `temperature` - The temperature of the fluid at the time the reading
+                  was taken, in &deg;C.
+
+Returns the corrected specific gravity ±0.0001.
+
 ### temperature
 
 Units of temperature measurement and logic to convert between units.
