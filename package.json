@@ -6,10 +6,6 @@
     "cider"
   ],
   "main": "lib/index.js",
-  "files": [
-    "*.md",
-    "lib"
-  ],
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src -d lib",
