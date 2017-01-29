@@ -3,7 +3,7 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v1.0.0
+# CiderLib v1.0.1
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
@@ -44,7 +44,7 @@ Provides access to the entire CiderLib API via the properties below.
 
 #### instruments
 
-* [**Hydrometer**](docs/instruments.md) - the Hydrometer API, including a class
+* [**Hydrometer**](docs/hydrometer.md) - the Hydrometer API, including a class
   to model a hydrometer of known calibration temperature and correct readings
   for temperature.
 

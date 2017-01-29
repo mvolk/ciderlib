@@ -1,4 +1,4 @@
-# [CiderLib](../README.md) (since v1.0.0)
+# [CiderLib](../README.md) (since v1.0.1)
 
 ## Units API
 
