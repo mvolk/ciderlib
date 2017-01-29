@@ -1,15 +1,15 @@
 # transpiled/polyfilled source code
-lib
+lib/
 
 # npm
-node_modules
+node_modules/
 npm-debug.log
 
 # code coverage report
-coverage
+coverage/
 
 # IntelliJ
-.idea
+.idea/
 
 # MacOS
 .DS_Store

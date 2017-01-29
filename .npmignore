@@ -1,7 +1,7 @@
-.idea
-coverage
-src
-test
+.idea/
+coverage/
+src/
+test/
 .babelrc
 .editorconfig
 .eslintrc
