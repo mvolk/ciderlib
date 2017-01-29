@@ -10,3 +10,6 @@ coverage
 
 # IntelliJ
 .idea
+
+# MacOS
+.DS_Store
