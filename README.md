@@ -44,7 +44,7 @@ Provides access to the entire CiderLib API via the properties below.
 
 #### instruments
 
-* [**Hydrometer**](docs/instruments.md) - the Hydrometer API, including a class
+* [**Hydrometer**](docs/hydrometer.md) - the Hydrometer API, including a class
   to model a hydrometer of known calibration temperature and correct readings
   for temperature.
 
