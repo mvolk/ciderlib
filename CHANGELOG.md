@@ -1,3 +1,8 @@
+# 1.0.1 (2017-01-29)
+
+  * Fixes [documentation link bug](https://github.com/mvolk/ciderlib/issues/3).
+  * Fixes [units export bug](https://github.com/mvolk/ciderlib/issues/4).
+
 # 1.0.0 (2017-01-29)
 
   * Replaces `temperature` with `units`.
