@@ -8,4 +8,3 @@ test/
 .gitignore
 .travis.yml
 jest.json
-.DS_Store
