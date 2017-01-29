@@ -22,8 +22,6 @@
  * SOFTWARE.
  */
 
-import assert from '../assert';
-
 export const CELSIUS = {
   key: 'celsius',
   label: '°C',
@@ -36,32 +34,17 @@ export const FAHRENHEIT = {
   name: 'Fahrenheit',
 };
 
-export const supportedUnits = [
-  CELSIUS,
-  FAHRENHEIT,
-];
+const fromCelsiusTo = {
+  [CELSIUS.key]: t => t,
+  [FAHRENHEIT.key]: t => (((9 * t) / 5) + 32),
+};
 
-const fromCelsiusTo = {};
-fromCelsiusTo[CELSIUS.key] = t => t;
-fromCelsiusTo[FAHRENHEIT.key] = t => (((9 * t) / 5) + 32);
+const fromFahrenheitTo = {
+  [CELSIUS.key]: t => ((5 * (t - 32)) / 9),
+  [FAHRENHEIT.key]: t => t,
+};
 
-const fromFahrenheitTo = {};
-fromFahrenheitTo[CELSIUS.key] = t => ((5 * (t - 32)) / 9);
-fromFahrenheitTo[FAHRENHEIT.key] = t => t;
-
-const conversionFn = {};
-conversionFn[FAHRENHEIT.key] = fromFahrenheitTo;
-conversionFn[CELSIUS.key] = fromCelsiusTo;
-
-export default function temperature(value, units) {
-  assert(value, 'temperature').is.a.finite.number();
-  assert(units, 'temperature units').is.in.array(supportedUnits);
-
-  return {
-    in: (newUnits) => {
-      assert(newUnits, 'temperature units').is.in.array(supportedUnits);
-
-      return conversionFn[units.key][newUnits.key](value);
-    },
-  };
-}
+export const temperatureConversionFunctions = {
+  [FAHRENHEIT.key]: fromFahrenheitTo,
+  [CELSIUS.key]: fromCelsiusTo,
+};

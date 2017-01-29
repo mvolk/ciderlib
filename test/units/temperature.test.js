@@ -22,29 +22,32 @@
  * SOFTWARE.
  */
 
-/**
- * Applies a polynomial function to a value.
- *
- * @param {Array} factors the factors for each term, with the indexes corresponding to the power of
- *                        the term. For example, [1, 8, -3] is equivalent to 1 + 8x - 3x^2.
- * @param {Number} value the value of the variable in the polynomial
- * @return {Number} the result of applying the polynomial function to the value
- *
- * @throws TypeError if `factors` is not an array, `factors` contains values that are not of type
- *         `number`, or `value` is not of type `number`.
- */
-export default function polynomial(factors, value) {
-  if (!Array.isArray(factors)) {
-    throw new TypeError('The factors must be an array of numbers.');
-  }
-  if (factors.some(factor => typeof factor !== 'number')) {
-    throw new TypeError('The factors must no contain any values that are not of type "number".');
-  }
-  if (typeof value !== 'number') {
-    throw new TypeError('The value must be of type "number".');
-  }
+import { CELSIUS, FAHRENHEIT } from '../../src/units/temperature';
 
-  return factors.reduce((accumulator, factor, exponent) => (
-    accumulator + (factor * (value ** exponent))
-  ), 0);
-}
+describe('CELSIUS', () => {
+  it('has key "celsius"', () => {
+    expect(CELSIUS.key).toEqual('celsius');
+  });
+
+  it('has name "Celsius"', () => {
+    expect(CELSIUS.name).toEqual('Celsius');
+  });
+
+  it('has key label "°C"', () => {
+    expect(CELSIUS.label).toEqual('°C');
+  });
+});
+
+describe('FAHRENHEIT', () => {
+  it('has key "fahrenheit"', () => {
+    expect(FAHRENHEIT.key).toEqual('fahrenheit');
+  });
+
+  it('has name "Fahrenheit"', () => {
+    expect(FAHRENHEIT.name).toEqual('Fahrenheit');
+  });
+
+  it('has key label "°F"', () => {
+    expect(FAHRENHEIT.label).toEqual('°F');
+  });
+});
