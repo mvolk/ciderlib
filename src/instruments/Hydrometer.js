@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-import assert from '../assert';
 import water from '../substances/water';
 
 /** Models a Hydrometer with a known calibration temperature. */
@@ -34,7 +33,7 @@ export default class Hydrometer {
    *                               Celsius. Hydrometers are typically calibrated at 15°C (59 °F)
    *                               or 20°C (68°F).
    *
-   * @throws TypeError or RangeError if the calibration temperature is not a finite number
+   * @throws TypeError if the calibration temperature is not of type `number`
    * @throws RangeError if the calibration temperature is below freezing or above boiling
    */
   constructor(calibrationTemperature) {
@@ -46,22 +45,27 @@ export default class Hydrometer {
    * Correct readings taken with this hydrometer for temperature.
    *
    * @param reading measured specific gravity of the fluid, before correcting for temperature
-   * @param temperature measured temperature of the fluid
+   * @param temperature measured temperature of the fluid, in °C
    *
-   * @throws TypeError if the reading or temperature is not a finite number
+   * @throws TypeError if the reading or temperature is not of type `number`
    * @throws RangeError if the reading is less than zero
    * @throws RangeError if the temperature is below freezing or above boiling
    */
   correctedReading(reading, temperature) {
-    assert(reading, 'specific gravity reading').is.a.finite.number();
-    assert(temperature, 'temperature').is.a.finite.number();
+    if (typeof reading !== 'number') {
+      throw new TypeError('The specific gravity reading must be of type "number".');
+    }
+
+    if (typeof temperature !== 'number') {
+      throw new TypeError('The temperature must be of type "number".');
+    }
 
     if (temperature < water.FREEZING_POINT || temperature > water.BOILING_POINT) {
-      throw new RangeError('temperature must be between freezing and boiling');
+      throw new RangeError('The temperature must not be less than 0°C or greater than 100°C.');
     }
 
     if (reading <= 0) {
-      throw new RangeError('specific gravity reading must be greater than zero');
+      throw new RangeError('The specific gravity reading must be greater than zero');
     }
 
     return (this.referenceDensity / water.density(temperature)) * reading;

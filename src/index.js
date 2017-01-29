@@ -1,9 +1,19 @@
 import Hydrometer from './instruments/Hydrometer';
-import temperature from './conversions/temperature';
+import units from './units';
 import water from './substances/water';
 
-module.exports = {
+export {
   Hydrometer,
-  temperature,
   water,
+  units,
+};
+
+export default {
+  substances: {
+    water,
+  },
+  instruments: {
+    Hydrometer,
+  },
+  units,
 };

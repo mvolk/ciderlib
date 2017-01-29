@@ -3,7 +3,7 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v0.2.0
+# CiderLib v1.0.0
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
@@ -38,65 +38,23 @@ npm install ciderlib --save
 
 ## API
 
-### Hydrometer
+### ciderlib
 
-Models a hydrometer with a known calibration temperature.
+Provides access to the entire CiderLib API via the properties below.
 
-#### constructor(calibrationTemperature)
+#### instruments
 
-* `temperature` - The calibration temperature of the hydrometer in &deg;C.
+* [**Hydrometer**](docs/instruments.md) - the Hydrometer API, including a class
+  to model a hydrometer of known calibration temperature and correct readings
+  for temperature.
 
-#### correctedReading(reading, temperature)
+#### substances
 
-Corrects a hydrometer's specific gravity reading for temperature.
+* [**water**](docs/water.md) - the water API, including boiling and freezing points
+  and density as a function of temperature.
 
-* `reading` - The specific gravity read from they hydrometer.
-* `temperature` - The temperature of the fluid at the time the reading
-                  was taken, in &deg;C.
+#### [units](docs/units.md)
 
-Returns the corrected specific gravity ±0.0001.
-
-### temperature
-
-Units of temperature measurement and logic to convert between units.
-
-#### temperature.CELSIUS
-
-#### temperature.FAHRENHEIT
-
-#### temperature.supportedUnits
-
-An array of all supported temperature units.
-
-#### temperature(temperature, units).in(newUnits)
-
-Converts temperatures between units of measurement.
-
-* `temperature` - A temperature value in the given units.
-* `units` - The units in which `temperature` is expressed. Must be one of the
-            `supportedUnits` - `CELSUIS` or `FAHRENHEIT`.
-* `newUnits` - The units in which you want to express `temperature`. Must be one of the
-            `supportedUnits` - `CELSUIS` or `FAHRENHEIT`.
-
-Returns the equivalent of `temperature` in `units` in `newUnits`.
-
-### water
-
-Properties of pure water under standard pressure. See API documentation below.
-
-#### water.BOILING_POINT
-
-The boiling point of pure water, under standard pressure, in &deg;C.
-
-#### water.FREEZING_POINT
-
-The freezing point of pure water, under standard pressure, in &deg;C.
-
-#### water.density(temperature)
-
-Calculates the density of pure water under standard pressure at a given
-temperature.
-
-* `temperature` - (Number between 0-100) Temperature of the water in &deg;C.
-
-Returns density in grams per liter (g/L), accurate to within ±0.1 g/L.
+The units of measurement API, including all units of measurement supported by
+CiderLib and a function to obtain a unit of measurement object for a given
+unit of measurement key.

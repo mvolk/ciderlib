@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import temperature, { FAHRENHEIT, CELSIUS } from '../../src/conversions/temperature';
+import units, { CELSIUS, FAHRENHEIT } from '../../src/units';
 import Hydrometer from '../../src/instruments/Hydrometer';
 
 describe('Hydrometer', () => {
@@ -32,12 +32,6 @@ describe('Hydrometer', () => {
       expect(() => new Hydrometer({})).toThrowError(TypeError);
       expect(() => new Hydrometer([])).toThrowError(TypeError);
       expect(() => new Hydrometer(() => {})).toThrowError(TypeError);
-      expect(() => new Hydrometer(Number.NaN)).toThrowError(TypeError);
-    });
-
-    it('throws a RangeError if the calibrationTemperature is not finite', () => {
-      expect(() => new Hydrometer(Number.POSITIVE_INFINITY)).toThrowError(RangeError);
-      expect(() => new Hydrometer(Number.NEGATIVE_INFINITY)).toThrowError(RangeError);
     });
 
     it('throws a RangeError if the calibrationTemperature is below freezing', () => {
@@ -58,14 +52,6 @@ describe('Hydrometer', () => {
       expect(() => hydrometer20C.correctedReading({}, 30)).toThrowError(TypeError);
       expect(() => hydrometer20C.correctedReading([], 30)).toThrowError(TypeError);
       expect(() => hydrometer20C.correctedReading(() => {}, 30)).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(Number.NaN, 30)).toThrowError(TypeError);
-    });
-
-    it('throws a RangeError if the reading is not finite', () => {
-      expect(() => hydrometer20C.correctedReading(Number.POSITIVE_INFINITY, 30))
-        .toThrowError(RangeError);
-      expect(() => hydrometer20C.correctedReading(Number.NEGATIVE_INFINITY, 30))
-        .toThrowError(RangeError);
     });
 
     it('throws a RangeError if the reading is 0', () => {
@@ -81,7 +67,6 @@ describe('Hydrometer', () => {
       expect(() => hydrometer20C.correctedReading(1.000, {})).toThrowError(TypeError);
       expect(() => hydrometer20C.correctedReading(1.000, [])).toThrowError(TypeError);
       expect(() => hydrometer20C.correctedReading(1.000, () => {})).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(1.000, Number.NaN)).toThrowError(TypeError);
     });
 
     it('throws a RangeError if the temperature is not finite', () => {
@@ -100,52 +85,46 @@ describe('Hydrometer', () => {
     });
 
     describe('with a hydrometer calibrated at 60F', () => {
-      const hydrometer60F = new Hydrometer(temperature(60, FAHRENHEIT).in(CELSIUS));
+      const hydrometer60F = new Hydrometer(units.convert(60, FAHRENHEIT).to(CELSIUS));
 
       it('returns 1.0190 ±0.0001 for a reading of 1.020 at 43°F', () => {
-        const atTemperature = temperature(43, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(43, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.0190 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.0193 ±0.0001 for a reading of 1.020 at 50°F', () => {
-        const atTemperature = temperature(50, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(50, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.0193 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.020 ±0.0001 for a reading of 1.020 at 60°F', () => {
-        const atTemperature = temperature(60, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(60, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.020 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.0205 ±0.0001 for a reading of 1.020 at 65°F', () => {
-        const atTemperature = temperature(65, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(65, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.0205 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.021 ±0.0001 for a reading of 1.020 at 70°F', () => {
-        const atTemperature = temperature(70, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(70, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.021 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.022 ±0.0001 for a reading of 1.020 at 77°F', () => {
-        const atTemperature = temperature(77, FAHRENHEIT).in(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.022 - correctedReading)).toBeLessThan(tolerance);
-      });
-
-      it('returns 1.022 ±0.0001 for a reading of 1.020 at 77°F', () => {
-        const atTemperature = temperature(77, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(77, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.022 - correctedReading)).toBeLessThan(tolerance);
       });
 
       it('returns 1.023 ±0.0001 for a reading of 1.020 at 84°F', () => {
-        const atTemperature = temperature(84, FAHRENHEIT).in(CELSIUS);
+        const atTemperature = units.convert(84, FAHRENHEIT).to(CELSIUS);
         const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
         expect(Math.abs(1.023 - correctedReading)).toBeLessThan(tolerance);
       });

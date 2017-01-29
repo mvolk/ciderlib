@@ -23,7 +23,6 @@
  */
 
 import polynomial from '../polynomial';
-import assert from '../assert';
 
 // The freezing point of pure water under standard pressure, expressed in degrees Celsius
 const FREEZING_POINT = 0;
@@ -40,15 +39,16 @@ const BOILING_POINT = 100;
  * @param temperature of the water, between freezing and boiling inclusive, in degrees Celsius.
  * @return the density of pure water at the given temperature, in grams per liter (g/L).
  *
- * @throws TypeError if temperature is not a finite number
+ * @throws TypeError if temperature is not of type `number`
  * @throws RangeError if temperature is below freezing or above boiling
  */
 function density(temperature) {
-  assert(temperature, 'temperature').is.a.finite.number();
+  if (typeof temperature !== 'number') {
+    throw new TypeError('Temperature must be of type "number".');
+  }
 
   if (temperature < FREEZING_POINT || temperature > BOILING_POINT) {
-    throw new RangeError(
-      'temperature must be between freezing and boiling, in degrees C, inclusive.');
+    throw new RangeError('Temperatures below 0°C and above 100°C are not supported.');
   }
 
   // The following regression was developed using MS Excel and datapoints cross-verified against

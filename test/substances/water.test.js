@@ -41,13 +41,10 @@ describe('water', () => {
     const looseTolerance = 0.1;
     const tightTolerance = 0.05;
 
-    it('asserts that temperature is a finite number', () => {
+    it('asserts that temperature is a number', () => {
       expect(() => water.density('foo')).toThrowError(TypeError);
       expect(() => water.density([1])).toThrowError(TypeError);
       expect(() => water.density({ temperature: 1 })).toThrowError(TypeError);
-      expect(() => water.density(Number.NaN)).toThrowError(TypeError);
-      expect(() => water.density(Number.POSITIVE_INFINITY)).toThrowError(RangeError);
-      expect(() => water.density(Number.NEGATIVE_INFINITY)).toThrowError(RangeError);
     });
 
     it('throws a RangeError if temperature is below freezing', () => {

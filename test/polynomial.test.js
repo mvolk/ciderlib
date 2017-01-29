@@ -29,18 +29,12 @@ describe('polynomial(arrayOfFactors, value)', () => {
     expect(() => polynomial({}, 1)).toThrowError(TypeError);
   });
 
-  it('throws an Error if arrayOfFactors contains anything other than finite numbers', () => {
+  it('throws an Error if arrayOfFactors contains anything other than numbers', () => {
     expect(() => polynomial([1, 'foobar'], 1)).toThrowError(TypeError);
-    expect(() => polynomial([1, Number.NaN, 2], 1)).toThrowError(TypeError);
-    expect(() => polynomial([1, Number.POSITIVE_INFINITY], 1)).toThrowError(RangeError);
-    expect(() => polynomial([1, Number.NEGATIVE_INFINITY], 1)).toThrowError(RangeError);
   });
 
-  it('throws an Error if value is not a finite number', () => {
+  it('throws an Error if value is not a number', () => {
     expect(() => polynomial([1], 'foobar')).toThrowError(TypeError);
-    expect(() => polynomial([1], Number.NaN)).toThrowError(TypeError);
-    expect(() => polynomial([1], Number.POSITIVE_INFINITY)).toThrowError(RangeError);
-    expect(() => polynomial([1], Number.NEGATIVE_INFINITY)).toThrowError(RangeError);
   });
 
   it('correctly calculates constant polynomials', () => {
