@@ -29,6 +29,9 @@ import units, {
   GRAMS,
   POUNDS,
   OUNCES,
+  LITERS,
+  MILLILITERS,
+  US_GALLONS,
 } from '../../src/units';
 import {
   CELSIUS as temperatureInCELSIUS,
@@ -40,6 +43,11 @@ import {
   POUNDS as massInPOUNDS,
   OUNCES as massInOUNCES,
 } from '../../src/units/mass';
+import {
+  LITERS as volumeInLITERS,
+  MILLILITERS as volumeInMILLILITERS,
+  US_GALLONS as volumeInUSGALLONS,
+} from '../../src/units/volume';
 
 describe('units', () => {
   describe('CELSIUS.key', () => {
@@ -75,6 +83,24 @@ describe('units', () => {
   describe('OUNCES.key', () => {
     it('maps to OUNCES', () => {
       expect(units[OUNCES.key]).toBe(OUNCES);
+    });
+  });
+
+  describe('LITERS.key', () => {
+    it('maps to LITERS', () => {
+      expect(units[LITERS.key]).toBe(LITERS);
+    });
+  });
+
+  describe('MILLILITERS.key', () => {
+    it('maps to MILLILITERS', () => {
+      expect(units[MILLILITERS.key]).toBe(MILLILITERS);
+    });
+  });
+
+  describe('US_GALLONS.key', () => {
+    it('maps to US_GALLONS', () => {
+      expect(units[US_GALLONS.key]).toBe(US_GALLONS);
     });
   });
 
@@ -168,70 +194,106 @@ describe('units', () => {
         expect(units.convert({ value: 68, units: FAHRENHEIT }).to(FAHRENHEIT)).toEqual(68);
         expect(units.convert({ value: 212, units: FAHRENHEIT }).to(FAHRENHEIT)).toEqual(212);
       });
-    });
 
-    it('correctly converts kilograms to kilograms', () => {
-      expect(units.convert(1, KILOGRAMS).to(KILOGRAMS)).toEqual(1);
-    });
+      it('correctly converts kilograms to kilograms', () => {
+        expect(units.convert(1, KILOGRAMS).to(KILOGRAMS)).toEqual(1);
+      });
 
-    it('correctly converts kilograms to grams', () => {
-      expect(units.convert(1, KILOGRAMS).to(GRAMS)).toEqual(1000);
-    });
+      it('correctly converts kilograms to grams', () => {
+        expect(units.convert(1, KILOGRAMS).to(GRAMS)).toEqual(1000);
+      });
 
-    it('correctly converts kilograms to pounds', () => {
-      expect(units.convert(0.45359237, KILOGRAMS).to(POUNDS)).toEqual(1);
-    });
+      it('correctly converts kilograms to pounds', () => {
+        expect(units.convert(0.45359237, KILOGRAMS).to(POUNDS)).toEqual(1);
+      });
 
-    it('correctly converts kilograms to ounces', () => {
-      expect(units.convert(0.028349523125, KILOGRAMS).to(OUNCES)).toEqual(1);
-    });
+      it('correctly converts kilograms to ounces', () => {
+        expect(units.convert(0.028349523125, KILOGRAMS).to(OUNCES)).toEqual(1);
+      });
 
-    it('correctly converts grams to kilograms', () => {
-      expect(units.convert(1000, GRAMS).to(KILOGRAMS)).toEqual(1);
-    });
+      it('correctly converts grams to kilograms', () => {
+        expect(units.convert(1000, GRAMS).to(KILOGRAMS)).toEqual(1);
+      });
 
-    it('correctly converts grams to grams', () => {
-      expect(units.convert(1, GRAMS).to(GRAMS)).toEqual(1);
-    });
+      it('correctly converts grams to grams', () => {
+        expect(units.convert(1, GRAMS).to(GRAMS)).toEqual(1);
+      });
 
-    it('correctly converts grams to pounds', () => {
-      expect(units.convert(453.59237, GRAMS).to(POUNDS)).toEqual(1);
-    });
+      it('correctly converts grams to pounds', () => {
+        expect(units.convert(453.59237, GRAMS).to(POUNDS)).toEqual(1);
+      });
 
-    it('correctly converts grams to ounces', () => {
-      expect(units.convert(28.349523125, GRAMS).to(OUNCES)).toEqual(1);
-    });
+      it('correctly converts grams to ounces', () => {
+        expect(units.convert(28.349523125, GRAMS).to(OUNCES)).toEqual(1);
+      });
 
-    it('correctly converts pounds to kilograms', () => {
-      expect(units.convert(1, POUNDS).to(KILOGRAMS)).toEqual(0.45359237);
-    });
+      it('correctly converts pounds to kilograms', () => {
+        expect(units.convert(1, POUNDS).to(KILOGRAMS)).toEqual(0.45359237);
+      });
 
-    it('correctly converts pounds to grams', () => {
-      expect(units.convert(1, POUNDS).to(GRAMS)).toEqual(453.59237);
-    });
+      it('correctly converts pounds to grams', () => {
+        expect(units.convert(1, POUNDS).to(GRAMS)).toEqual(453.59237);
+      });
 
-    it('correctly converts pounds to pounds', () => {
-      expect(units.convert(1, POUNDS).to(POUNDS)).toEqual(1);
-    });
+      it('correctly converts pounds to pounds', () => {
+        expect(units.convert(1, POUNDS).to(POUNDS)).toEqual(1);
+      });
 
-    it('correctly converts pounds to ounces', () => {
-      expect(units.convert(1, POUNDS).to(OUNCES)).toEqual(16);
-    });
+      it('correctly converts pounds to ounces', () => {
+        expect(units.convert(1, POUNDS).to(OUNCES)).toEqual(16);
+      });
 
-    it('correctly converts ounces to kilograms', () => {
-      expect(units.convert(1, OUNCES).to(KILOGRAMS)).toEqual(0.028349523125);
-    });
+      it('correctly converts ounces to kilograms', () => {
+        expect(units.convert(1, OUNCES).to(KILOGRAMS)).toEqual(0.028349523125);
+      });
 
-    it('correctly converts ounces to grams', () => {
-      expect(units.convert(1, OUNCES).to(GRAMS)).toEqual(28.349523125);
-    });
+      it('correctly converts ounces to grams', () => {
+        expect(units.convert(1, OUNCES).to(GRAMS)).toEqual(28.349523125);
+      });
 
-    it('correctly converts ounces to pounds', () => {
-      expect(units.convert(16, OUNCES).to(POUNDS)).toEqual(1);
-    });
+      it('correctly converts ounces to pounds', () => {
+        expect(units.convert(16, OUNCES).to(POUNDS)).toEqual(1);
+      });
 
-    it('correctly converts ounces to ounces', () => {
-      expect(units.convert(1, OUNCES).to(OUNCES)).toEqual(1);
+      it('correctly converts ounces to ounces', () => {
+        expect(units.convert(1, OUNCES).to(OUNCES)).toEqual(1);
+      });
+
+      it('correctly converts liters to liters', () => {
+        expect(units.convert(1, LITERS).to(LITERS)).toEqual(1);
+      });
+
+      it('correctly converts liters to milliliters', () => {
+        expect(units.convert(1, LITERS).to(MILLILITERS)).toEqual(1000);
+      });
+
+      it('correctly converts liters to US gallons', () => {
+        expect(units.convert(3.785411784, LITERS).to(US_GALLONS)).toEqual(1);
+      });
+
+      it('correctly converts milliliters to liters', () => {
+        expect(units.convert(1000, MILLILITERS).to(LITERS)).toEqual(1);
+      });
+
+      it('correctly converts milliliters to milliliters', () => {
+        expect(units.convert(1, MILLILITERS).to(MILLILITERS)).toEqual(1);
+      });
+
+      it('correctly converts milliliters to US gallons', () => {
+        expect(units.convert(3785.411784, MILLILITERS).to(US_GALLONS)).toEqual(1);
+      });
+
+      it('correctly converts US gallons to liters', () => {
+        expect(units.convert(1, US_GALLONS).to(LITERS)).toEqual(3.785411784);
+      });
+
+      it('correctly converts US gallons to milliliters', () => {
+        expect(units.convert(1, US_GALLONS).to(MILLILITERS)).toEqual(3785.411784);
+      });
+
+      it('correctly converts US gallons to US gallons', () => {
+        expect(units.convert(1, US_GALLONS).to(US_GALLONS)).toEqual(1);
+      });
     });
   });
 });
@@ -269,5 +331,23 @@ describe('POUNDS', () => {
 describe('OUNCES', () => {
   it('is equivalent to mass.OUNCES', () => {
     expect(OUNCES).toBe(massInOUNCES);
+  });
+});
+
+describe('LITERS', () => {
+  it('is equivalent to volume.LITERS', () => {
+    expect(LITERS).toBe(volumeInLITERS);
+  });
+});
+
+describe('MILLILITERS', () => {
+  it('is equivalent to volume.MILLILITERS', () => {
+    expect(MILLILITERS).toBe(volumeInMILLILITERS);
+  });
+});
+
+describe('US_GALLONS', () => {
+  it('is equivalent to volume.US_GALLONS', () => {
+    expect(US_GALLONS).toBe(volumeInUSGALLONS);
   });
 });

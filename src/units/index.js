@@ -24,10 +24,12 @@
 
 import { CELSIUS, FAHRENHEIT, temperatureConversionFunctions } from './temperature';
 import { KILOGRAMS, GRAMS, POUNDS, OUNCES, massConversionFunctions } from './mass';
+import { LITERS, MILLILITERS, US_GALLONS, volumeConversionFunctions } from './volume';
 
 const conversionFunctions = {
   ...temperatureConversionFunctions,
   ...massConversionFunctions,
+  ...volumeConversionFunctions,
 };
 
 const unitsMap = {
@@ -37,6 +39,9 @@ const unitsMap = {
   [GRAMS.key]: GRAMS,
   [POUNDS.key]: POUNDS,
   [OUNCES.key]: OUNCES,
+  [LITERS.key]: LITERS,
+  [MILLILITERS.key]: MILLILITERS,
+  [US_GALLONS.key]: US_GALLONS,
 };
 
 /**
@@ -97,6 +102,9 @@ export {
   GRAMS,
   POUNDS,
   OUNCES,
+  LITERS,
+  MILLILITERS,
+  US_GALLONS,
 };
 
 export default {

@@ -1,4 +1,4 @@
-# [CiderLib](../README.md) (since v1.1.0)
+# [CiderLib](../README.md) (since v1.2.0)
 
 ## Units API
 
@@ -25,14 +25,17 @@ units.convert(boiling).to(FAHRENHEIT);    // -> 212
 
 #### Supported Units of Measurement
 
-| **UoM**      | **Key**    | **Name**   | **Label**  | **Note**  |
-| ------------ | ---------- | ---------- | ---------- | --------- |
-| `CELSIUS`    | celsius    | Celsius    | &deg;C     |           |
-| `FAHRENHEIT` | fahrenheit | Fahrenheit | &deg;F     |           |
-| `KILOGRAMS`  | kilograms  | Kilograms  | kg         |           |
-| `GRAMS`      | grams      | Grams      | g          |           |
-| `POUNDS`     | pounds     | Pounds     | lb         | US        |
-| `OUNCES`     | ounces     | Ounces     | oz         | US        |
+| **UoM**       | **Key**     | **Name**    | **Label**  | **Note**  |
+| ------------- | ----------- | ----------- | ---------- | --------- |
+| `CELSIUS`     | celsius     | Celsius     | &deg;C     |           |
+| `FAHRENHEIT`  | fahrenheit  | Fahrenheit  | &deg;F     |           |
+| `KILOGRAMS`   | kilograms   | Kilograms   | kg         |           |
+| `GRAMS`       | grams       | Grams       | g          |           |
+| `POUNDS`      | pounds      | Pounds      | lb         | US        |
+| `OUNCES`      | ounces      | Ounces      | oz         | US        |
+| `LITERS`      | liters      | Liters      | l          |           |
+| `MILLILITERS` | milliliters | Milliliters | ml         |           |
+| `US_GALLONS`  | usgallons   | US Gallons  | gal (US)   | US        |
 
 
 ### convert(valueOrObject, units).to(newUnits)

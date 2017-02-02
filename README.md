@@ -3,21 +3,21 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v1.1.0
+# CiderLib v1.2.0
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
 
 ## Status
 
-This is an early work in progress. Here's the task list:
+This is a work in progress. Here's the task list:
 
 * [X] Project setup
 * [X] Relevant properties of water
 * [ ] Conversion functions for units of measurement
     * [X] Temperature
     * [X] Mass
-    * [ ] Volume
+    * [X] Volume
     * [ ] Sugar content (Brix, SG, qualitative categories)
 * [X] Hydrometer reading correction function
 * [ ] Potential alcohol calculator functions
