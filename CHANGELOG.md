@@ -1,3 +1,7 @@
+# 1.2.0 (2017-02-02)
+
+  * Adds support for three units of volume
+
 # 1.1.0 (2017-02-01)
 
   * Adds support for four units of mass
