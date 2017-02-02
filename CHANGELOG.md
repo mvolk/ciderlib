@@ -1,3 +1,7 @@
+# 1.1.0 (2017-02-01)
+
+  * Adds support for four units of mass
+
 # 1.0.1 (2017-01-29)
 
   * Fixes [documentation link bug](https://github.com/mvolk/ciderlib/issues/3).
