@@ -22,11 +22,24 @@
  * SOFTWARE.
  */
 
-import units, { CELSIUS, FAHRENHEIT } from '../../src/units';
+import units, {
+  CELSIUS,
+  FAHRENHEIT,
+  KILOGRAMS,
+  GRAMS,
+  POUNDS,
+  OUNCES,
+} from '../../src/units';
 import {
-  CELSIUS as temperatureCELSIUS,
-  FAHRENHEIT as temperatureFAHRENHEIT,
+  CELSIUS as temperatureInCELSIUS,
+  FAHRENHEIT as temperatureInFAHRENHEIT,
 } from '../../src/units/temperature';
+import {
+  KILOGRAMS as massInKILOGRAMS,
+  GRAMS as massInGRAMS,
+  POUNDS as massInPOUNDS,
+  OUNCES as massInOUNCES,
+} from '../../src/units/mass';
 
 describe('units', () => {
   describe('CELSIUS.key', () => {
@@ -38,6 +51,30 @@ describe('units', () => {
   describe('FAHRENHEIT.key', () => {
     it('maps to FAHRENHEIT', () => {
       expect(units[FAHRENHEIT.key]).toBe(FAHRENHEIT);
+    });
+  });
+
+  describe('KILOGRAMS.key', () => {
+    it('maps to KILOGRAMS', () => {
+      expect(units[KILOGRAMS.key]).toBe(KILOGRAMS);
+    });
+  });
+
+  describe('GRAMS.key', () => {
+    it('maps to GRAMS', () => {
+      expect(units[GRAMS.key]).toBe(GRAMS);
+    });
+  });
+
+  describe('POUNDS.key', () => {
+    it('maps to POUNDS', () => {
+      expect(units[POUNDS.key]).toBe(POUNDS);
+    });
+  });
+
+  describe('OUNCES.key', () => {
+    it('maps to OUNCES', () => {
+      expect(units[OUNCES.key]).toBe(OUNCES);
     });
   });
 
@@ -84,6 +121,10 @@ describe('units', () => {
         expect(() => units.convert(0, CELSIUS).to(KELVIN)).toThrowError(RangeError);
       });
 
+      it('throws a RangeError if a conversion function is not available', () => {
+        expect(() => units.convert(0, CELSIUS).to(OUNCES)).toThrowError(RangeError);
+      });
+
       it('correctly converts celsius to celsius', () => {
         expect(units.convert(0, CELSIUS).to(CELSIUS)).toEqual(0);
         expect(units.convert(15, CELSIUS).to(CELSIUS)).toEqual(15);
@@ -128,17 +169,105 @@ describe('units', () => {
         expect(units.convert({ value: 212, units: FAHRENHEIT }).to(FAHRENHEIT)).toEqual(212);
       });
     });
+
+    it('correctly converts kilograms to kilograms', () => {
+      expect(units.convert(1, KILOGRAMS).to(KILOGRAMS)).toEqual(1);
+    });
+
+    it('correctly converts kilograms to grams', () => {
+      expect(units.convert(1, KILOGRAMS).to(GRAMS)).toEqual(1000);
+    });
+
+    it('correctly converts kilograms to pounds', () => {
+      expect(units.convert(0.45359237, KILOGRAMS).to(POUNDS)).toEqual(1);
+    });
+
+    it('correctly converts kilograms to ounces', () => {
+      expect(units.convert(0.028349523125, KILOGRAMS).to(OUNCES)).toEqual(1);
+    });
+
+    it('correctly converts grams to kilograms', () => {
+      expect(units.convert(1000, GRAMS).to(KILOGRAMS)).toEqual(1);
+    });
+
+    it('correctly converts grams to grams', () => {
+      expect(units.convert(1, GRAMS).to(GRAMS)).toEqual(1);
+    });
+
+    it('correctly converts grams to pounds', () => {
+      expect(units.convert(453.59237, GRAMS).to(POUNDS)).toEqual(1);
+    });
+
+    it('correctly converts grams to ounces', () => {
+      expect(units.convert(28.349523125, GRAMS).to(OUNCES)).toEqual(1);
+    });
+
+    it('correctly converts pounds to kilograms', () => {
+      expect(units.convert(1, POUNDS).to(KILOGRAMS)).toEqual(0.45359237);
+    });
+
+    it('correctly converts pounds to grams', () => {
+      expect(units.convert(1, POUNDS).to(GRAMS)).toEqual(453.59237);
+    });
+
+    it('correctly converts pounds to pounds', () => {
+      expect(units.convert(1, POUNDS).to(POUNDS)).toEqual(1);
+    });
+
+    it('correctly converts pounds to ounces', () => {
+      expect(units.convert(1, POUNDS).to(OUNCES)).toEqual(16);
+    });
+
+    it('correctly converts ounces to kilograms', () => {
+      expect(units.convert(1, OUNCES).to(KILOGRAMS)).toEqual(0.028349523125);
+    });
+
+    it('correctly converts ounces to grams', () => {
+      expect(units.convert(1, OUNCES).to(GRAMS)).toEqual(28.349523125);
+    });
+
+    it('correctly converts ounces to pounds', () => {
+      expect(units.convert(16, OUNCES).to(POUNDS)).toEqual(1);
+    });
+
+    it('correctly converts ounces to ounces', () => {
+      expect(units.convert(1, OUNCES).to(OUNCES)).toEqual(1);
+    });
   });
 });
 
 describe('CELSIUS', () => {
   it('is equivalent to temperature.CELSIUS', () => {
-    expect(CELSIUS).toBe(temperatureCELSIUS);
+    expect(CELSIUS).toBe(temperatureInCELSIUS);
   });
 });
 
 describe('FAHRENHEIT', () => {
   it('is equivalent to temperature.FAHRENHEIT', () => {
-    expect(FAHRENHEIT).toBe(temperatureFAHRENHEIT);
+    expect(FAHRENHEIT).toBe(temperatureInFAHRENHEIT);
+  });
+});
+
+describe('KILOGRAMS', () => {
+  it('is equivalent to mass.KILOGRAMS', () => {
+    expect(KILOGRAMS).toBe(massInKILOGRAMS);
+  });
+});
+
+describe('GRAMS', () => {
+  it('is equivalent to mass.GRAMS', () => {
+    expect(GRAMS).toBe(massInGRAMS);
+  });
+});
+
+describe('POUNDS', () => {
+  it('is equivalent to mass.POUNDS', () => {
+    expect(POUNDS).toBe(massInPOUNDS);
+  });
+});
+
+describe('OUNCES', () => {
+  it('is equivalent to mass.OUNCES', () => {
+    expect(OUNCES).toBe(massInOUNCES);
   });
 });

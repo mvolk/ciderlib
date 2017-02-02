@@ -23,14 +23,20 @@
  */
 
 import { CELSIUS, FAHRENHEIT, temperatureConversionFunctions } from './temperature';
+import { KILOGRAMS, GRAMS, POUNDS, OUNCES, massConversionFunctions } from './mass';
 
 const conversionFunctions = {
   ...temperatureConversionFunctions,
+  ...massConversionFunctions,
 };
 
 const unitsMap = {
   [CELSIUS.key]: CELSIUS,
   [FAHRENHEIT.key]: FAHRENHEIT,
+  [KILOGRAMS.key]: KILOGRAMS,
+  [GRAMS.key]: GRAMS,
+  [POUNDS.key]: POUNDS,
+  [OUNCES.key]: OUNCES,
 };
 
 /**
@@ -74,11 +80,10 @@ function convert(valueOrObject, units) {
       }
 
       const conversionFunction = conversionFunctions[originalUnits.key][newUnits.key];
-      // TODO: enable once properties other than temperature are supported; presently not reachable.
-      // if (!conversionFunction) {
-      //   throw new RangeError(
-      //     `Conversion from ${originalUnits.label} to ${newUnits.label} not supported`);
-      // }
+      if (!conversionFunction) {
+        throw new RangeError(
+          `Conversion from ${originalUnits.label} to ${newUnits.label} not supported`);
+      }
 
       return conversionFunction(originalValue);
     },
@@ -88,6 +93,10 @@ function convert(valueOrObject, units) {
 export {
   CELSIUS,
   FAHRENHEIT,
+  KILOGRAMS,
+  GRAMS,
+  POUNDS,
+  OUNCES,
 };
 
 export default {

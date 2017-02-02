@@ -1,4 +1,4 @@
-# [CiderLib](../README.md) (since v1.0.1)
+# [CiderLib](../README.md) (since v1.1.0)
 
 ## Units API
 
@@ -25,10 +25,15 @@ units.convert(boiling).to(FAHRENHEIT);    // -> 212
 
 #### Supported Units of Measurement
 
-| **UoM**      | **Key**    | **Name**   | **Label**  |
-| ------------ | ---------- | ---------- | ---------- |
-| `CELSIUS`    | celsius    | Celsius    | &deg;C     |
-| `FAHRENHEIT` | fahrenheit | Fahrenheit | &deg;F     |
+| **UoM**      | **Key**    | **Name**   | **Label**  | **Note**  |
+| ------------ | ---------- | ---------- | ---------- | --------- |
+| `CELSIUS`    | celsius    | Celsius    | &deg;C     |           |
+| `FAHRENHEIT` | fahrenheit | Fahrenheit | &deg;F     |           |
+| `KILOGRAMS`  | kilograms  | Kilograms  | kg         |           |
+| `GRAMS`      | grams      | Grams      | g          |           |
+| `POUNDS`     | pounds     | Pounds     | lb         | US        |
+| `OUNCES`     | ounces     | Ounces     | oz         | US        |
+
 
 ### convert(valueOrObject, units).to(newUnits)
 
