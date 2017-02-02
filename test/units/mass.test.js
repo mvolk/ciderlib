@@ -38,7 +38,7 @@ describe('KILOGRAMS', () => {
     expect(KILOGRAMS.name).toEqual('Kilograms');
   });
 
-  it('has key label "kg"', () => {
+  it('has label "kg"', () => {
     expect(KILOGRAMS.label).toEqual('kg');
   });
 });
@@ -52,7 +52,7 @@ describe('GRAMS', () => {
     expect(GRAMS.name).toEqual('Grams');
   });
 
-  it('has key label "g"', () => {
+  it('has label "g"', () => {
     expect(GRAMS.label).toEqual('g');
   });
 });
@@ -66,7 +66,7 @@ describe('POUNDS', () => {
     expect(POUNDS.name).toEqual('Pounds');
   });
 
-  it('has key label "lb"', () => {
+  it('has label "lb"', () => {
     expect(POUNDS.label).toEqual('lb');
   });
 });
@@ -80,7 +80,7 @@ describe('OUNCES', () => {
     expect(OUNCES.name).toEqual('Ounces');
   });
 
-  it('has key label "oz"', () => {
+  it('has label "oz"', () => {
     expect(OUNCES.label).toEqual('oz');
   });
 });
