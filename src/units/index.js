@@ -25,11 +25,13 @@
 import { CELSIUS, FAHRENHEIT, temperatureConversionFunctions } from './temperature';
 import { KILOGRAMS, GRAMS, POUNDS, OUNCES, massConversionFunctions } from './mass';
 import { LITERS, MILLILITERS, US_GALLONS, volumeConversionFunctions } from './volume';
+import { BRIX, SPECIFIC_GRAVITY, sugarConversionFunctions } from './sugar';
 
 const conversionFunctions = {
   ...temperatureConversionFunctions,
   ...massConversionFunctions,
   ...volumeConversionFunctions,
+  ...sugarConversionFunctions,
 };
 
 const unitsMap = {
@@ -42,6 +44,8 @@ const unitsMap = {
   [LITERS.key]: LITERS,
   [MILLILITERS.key]: MILLILITERS,
   [US_GALLONS.key]: US_GALLONS,
+  [BRIX.key]: BRIX,
+  [SPECIFIC_GRAVITY.key]: SPECIFIC_GRAVITY,
 };
 
 /**
@@ -105,6 +109,8 @@ export {
   LITERS,
   MILLILITERS,
   US_GALLONS,
+  BRIX,
+  SPECIFIC_GRAVITY,
 };
 
 export default {
