@@ -1,3 +1,10 @@
+# 1.3.0 (2017-02-03)
+
+  * Adds support for units of Brix, a measure of sugar content
+  * Adds conversion functions between degrees Brix and specific gravity,
+    assuming that the substance being measures is a pure solution of water
+    and sucrose.
+
 # 1.2.0 (2017-02-02)
 
   * Adds support for three units of volume

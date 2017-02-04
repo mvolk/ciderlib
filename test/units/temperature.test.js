@@ -33,7 +33,7 @@ describe('CELSIUS', () => {
     expect(CELSIUS.name).toEqual('Celsius');
   });
 
-  it('has key label "°C"', () => {
+  it('has label "°C"', () => {
     expect(CELSIUS.label).toEqual('°C');
   });
 });
@@ -47,7 +47,7 @@ describe('FAHRENHEIT', () => {
     expect(FAHRENHEIT.name).toEqual('Fahrenheit');
   });
 
-  it('has key label "°F"', () => {
+  it('has label "°F"', () => {
     expect(FAHRENHEIT.label).toEqual('°F');
   });
 });

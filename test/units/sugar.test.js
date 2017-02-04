@@ -23,64 +23,34 @@
  */
 
 import {
-  KILOGRAMS,
-  GRAMS,
-  POUNDS,
-  OUNCES,
-} from '../../src/units/mass';
+  BRIX,
+  SPECIFIC_GRAVITY,
+} from '../../src/units/sugar';
 
-describe('KILOGRAMS', () => {
-  it('has key "kilograms"', () => {
-    expect(KILOGRAMS.key).toEqual('kilograms');
+describe('BRIX', () => {
+  it('has key "brix"', () => {
+    expect(BRIX.key).toEqual('brix');
   });
 
-  it('has name "Kilograms"', () => {
-    expect(KILOGRAMS.name).toEqual('Kilograms');
+  it('has name "Brix"', () => {
+    expect(BRIX.name).toEqual('Brix');
   });
 
-  it('has label "kg"', () => {
-    expect(KILOGRAMS.label).toEqual('kg');
+  it('has label "°Bx"', () => {
+    expect(BRIX.label).toEqual('°Bx');
   });
 });
 
-describe('GRAMS', () => {
-  it('has key "grams"', () => {
-    expect(GRAMS.key).toEqual('grams');
+describe('SPECIFIC_GRAVITY', () => {
+  it('has key "sg"', () => {
+    expect(SPECIFIC_GRAVITY.key).toEqual('sg');
   });
 
-  it('has name "Grams"', () => {
-    expect(GRAMS.name).toEqual('Grams');
+  it('has name "Specific Gravity"', () => {
+    expect(SPECIFIC_GRAVITY.name).toEqual('Specific Gravity');
   });
 
-  it('has label "g"', () => {
-    expect(GRAMS.label).toEqual('g');
-  });
-});
-
-describe('POUNDS', () => {
-  it('has key "pounds"', () => {
-    expect(POUNDS.key).toEqual('pounds');
-  });
-
-  it('has name "Pounds"', () => {
-    expect(POUNDS.name).toEqual('Pounds');
-  });
-
-  it('has label "lb"', () => {
-    expect(POUNDS.label).toEqual('lb');
-  });
-});
-
-describe('OUNCES', () => {
-  it('has key "ounces"', () => {
-    expect(OUNCES.key).toEqual('ounces');
-  });
-
-  it('has name "Ounces"', () => {
-    expect(OUNCES.name).toEqual('Ounces');
-  });
-
-  it('has label "oz"', () => {
-    expect(OUNCES.label).toEqual('oz');
+  it('has no label', () => {
+    expect(SPECIFIC_GRAVITY.label).toEqual('');
   });
 });
