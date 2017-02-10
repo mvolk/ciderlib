@@ -3,7 +3,7 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v1.3.0
+# CiderLib v1.4.0
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
@@ -14,15 +14,16 @@ This is a work in progress. Here's the task list:
 
 * [X] Project setup
 * [X] Relevant properties of water
-* [ ] Conversion functions for units of measurement
+* [X] Conversion functions for units of measurement
     * [X] Temperature
     * [X] Mass
     * [X] Volume
-    * [ ] Sugar content (Brix, SG, qualitative categories)
+    * [X] Sugar content (Brix, SG, qualitative categories)
 * [X] Hydrometer reading correction function
 * [ ] Potential alcohol calculator functions
 * [ ] Chaptalization (addition of sugar) calculator functions
 * [ ] Relevant properties of classes of apple juice
+* [ ] Sulphiting calculator
 
 Most of the above has already been implemented in the
 [CiderRef Java SDK](https://github.com/mvolk/cider-sdk-java), so the
@@ -49,6 +50,9 @@ Provides access to the entire CiderLib API via the properties below.
   for temperature.
 
 #### substances
+
+* [**hardCider**](docs/hardCider.md) - the hard cider API, including sweetness
+  classifications (dry, off-dry, etc) and a classification function.
 
 * [**water**](docs/water.md) - the water API, including boiling and freezing points
   and density as a function of temperature.
