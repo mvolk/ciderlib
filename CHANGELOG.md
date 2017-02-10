@@ -1,3 +1,8 @@
+# 1.4.0 (2017-02-09)
+
+  * Adds sweetness classifications of hard cider as concepts.
+  * Adds a function to map from specific gravity to sweetness classification.
+
 # 1.3.0 (2017-02-03)
 
   * Adds support for units of Brix, a measure of sugar content
