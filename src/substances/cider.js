@@ -79,6 +79,29 @@ function classifyBySG(specificGravity) {
   return SWEET;
 }
 
+/**
+ * Obtain the amount of alcohol that will be produced if all of the given sugar is fermented out.
+ * This amount is in addition to any existing alcohol in the cider. This function uses the
+ * formula given by Warcollier in La Cidrerie (1928).
+ * @param sugarConcentration {Number} the volumic mass concentration of sugar in cider, expressed
+ *   in g/L.
+ * @return {Number} the amount of alcohol, in % by volume at 20°C, that will be produced if all of
+ *   the given sugar content is fermented out.
+ * @throws TypeError if sugarConcentration is not of type number
+ * @throws RangeError if the sugarConcentration is negative
+ */
+function potentialAlcohol(sugarConcentration) {
+  if (typeof sugarConcentration !== 'number') {
+    throw new TypeError('Sugar concentration must be of type number.');
+  }
+
+  if (sugarConcentration < 0) {
+    throw new RangeError('Sugar concentration cannot be less than zero.');
+  }
+
+  return (0.06 * sugarConcentration);
+}
+
 export default {
   sweetness: {
     DRY,
@@ -88,4 +111,5 @@ export default {
     SWEET,
   },
   classifyBySG,
+  potentialAlcohol,
 };
