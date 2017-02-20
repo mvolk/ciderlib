@@ -1,3 +1,8 @@
+# 2.0.0 (2017-02-19)
+
+  * Replaces `hardCider` with `cider` (breaking change).
+  * Adds potential alcohol functions to `cider`.
+
 # 1.4.0 (2017-02-09)
 
   * Adds sweetness classifications of hard cider as concepts.

@@ -3,7 +3,7 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v1.4.0
+# CiderLib v2.0.0
 
 JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
@@ -12,22 +12,19 @@ functionality exposed to end users via [CiderRef](https://github.com/mvolk/cider
 
 This is a work in progress. Here's the task list:
 
-* [X] Project setup
-* [X] Relevant properties of water
-* [X] Conversion functions for units of measurement
-    * [X] Temperature
-    * [X] Mass
-    * [X] Volume
-    * [X] Sugar content (Brix, SG, qualitative categories)
-* [X] Hydrometer reading correction function
-* [ ] Potential alcohol calculator functions
+* [x] Project setup
+* [x] Relevant properties of water
+* [x] Conversion functions for units of measurement
+    * [x] Temperature
+    * [x] Mass
+    * [x] Volume
+    * [x] Sugar content (Brix, SG, qualitative categories)
+* [x] Hydrometer reading correction function
+* [x] Potential alcohol calculator functions
+* [ ] Volumic mass of total solids
 * [ ] Chaptalization (addition of sugar) calculator functions
 * [ ] Relevant properties of classes of apple juice
 * [ ] Sulphiting calculator
-
-Most of the above has already been implemented in the
-[CiderRef Java SDK](https://github.com/mvolk/cider-sdk-java), so the
-magnitude of work ahead is not as great as it might otherwise seem.
 
 Collaborators welcome.
 
@@ -51,8 +48,9 @@ Provides access to the entire CiderLib API via the properties below.
 
 #### substances
 
-* [**hardCider**](docs/hardCider.md) - the hard cider API, including sweetness
-  classifications (dry, off-dry, etc) and a classification function.
+* [**cider**](docs/cider.md) - the cider API, including sweetness
+  classification (dry, off-dry, etc) and potential alcohol as a function of
+  sugar concentration. Valid for ciders sweet, hard and in between.
 
 * [**water**](docs/water.md) - the water API, including boiling and freezing points
   and density as a function of temperature.

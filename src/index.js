@@ -24,20 +24,20 @@
 
 import Hydrometer from './instruments/Hydrometer';
 import units from './units';
-import hardCider from './substances/hardCider';
+import cider from './substances/cider';
 import water from './substances/water';
 
 export {
+  cider,
   Hydrometer,
-  water,
   units,
-  hardCider,
+  water,
 };
 
 export default {
   substances: {
+    cider,
     water,
-    hardCider,
   },
   instruments: {
     Hydrometer,
