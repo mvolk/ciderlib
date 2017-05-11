@@ -12,6 +12,6 @@
   "globals": {},
   "resetMocks": true,
   "resetModules": true,
-  "testPathDirs": ["test"],
+  "roots": ["test"],
   "verbose": false
 }
