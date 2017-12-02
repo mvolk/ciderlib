@@ -23,28 +23,24 @@
  */
 
 /**
- * Applies a polynomial function to a value.
+ * Applies a polynomial function to a value. Takes the coefficients for each polynomial term and
+ * the value of the variable in the polynomial function and calculates the result.
  *
- * @param {Array} factors the factors for each term, with the indexes corresponding to the power of
- *                        the term. For example, [1, 8, -3] is equivalent to 1 + 8x - 3x^2.
- * @param {Number} value the value of the variable in the polynomial
- * @return {Number} the result of applying the polynomial function to the value
- *
- * @throws TypeError if `factors` is not an array, `factors` contains values that are not of type
- *         `number`, or `value` is not of type `number`.
+ * For example, polynomial([1, 8, 0, -5], 10) evaluates 1 + 8x - 5x^3 with x = 10 and returns the
+ * result.
  */
-export default function polynomial(factors, value) {
-  if (!Array.isArray(factors)) {
-    throw new TypeError('The factors must be an array of numbers.');
+export default function polynomial(coefficients, value) {
+  if (!Array.isArray(coefficients)) {
+    throw new TypeError('The coefficients must be an array of numbers.');
   }
-  if (factors.some(factor => typeof factor !== 'number')) {
-    throw new TypeError('The factors must no contain any values that are not of type "number".');
+  if (coefficients.some(coefficient => typeof coefficient !== 'number')) {
+    throw new TypeError('The coefficients must no contain any values that are not of type "number".');
   }
   if (typeof value !== 'number') {
     throw new TypeError('The value must be of type "number".');
   }
 
-  return factors.reduce((accumulator, factor, exponent) => (
+  return coefficients.reduce((accumulator, factor, exponent) => (
     accumulator + (factor * (value ** exponent))
   ), 0);
 }
