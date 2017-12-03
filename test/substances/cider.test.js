@@ -22,172 +22,175 @@
  * SOFTWARE.
  */
 
-import cider from '../../src/substances/cider';
+import Cider from '../../src/substances/Cider';
+import Mass from '../../src/properties/Mass';
+import SpecificGravity from '../../src/properties/SpecificGravity';
+import Volume from '../../src/properties/Volume';
+import VolumicMass from '../../src/properties/VolumicMass';
 
-describe('cider', () => {
+describe('Cider', () => {
+  const sg = value => new SpecificGravity(value);
+  const gpL = value => new VolumicMass(new Mass(value, Mass.GRAMS), new Volume(1, Volume.LITERS));
+
   describe('.sweetness', () => {
     describe('.DRY', () => {
       test('is labelled "dry"', () => {
-        expect(cider.sweetness.DRY.label).toBe('dry');
+        expect(Cider.DRY.label).toBe('dry');
       });
 
-      test('has minSG of negative infinity', () => {
-        expect(cider.sweetness.DRY.minSG).toBe(Number.NEGATIVE_INFINITY);
+      test('has null minSG', () => {
+        expect(Cider.DRY.minSG).toBeNull();
       });
 
       test('has maxSG of 1.004', () => {
-        expect(cider.sweetness.DRY.maxSG).toBe(1.004);
+        expect(Cider.DRY.maxSG.magnitude).toBe(1.004);
       });
     });
 
     describe('.OFF_DRY', () => {
       test('is labelled "off dry"', () => {
-        expect(cider.sweetness.OFF_DRY.label).toBe('off dry');
+        expect(Cider.OFF_DRY.label).toBe('off dry');
       });
 
       test('has minSG of 1.004', () => {
-        expect(cider.sweetness.OFF_DRY.minSG).toBe(1.004);
+        expect(Cider.OFF_DRY.minSG.magnitude).toBe(1.004);
       });
 
       test('has maxSG of 1.009', () => {
-        expect(cider.sweetness.OFF_DRY.maxSG).toBe(1.009);
+        expect(Cider.OFF_DRY.maxSG.magnitude).toBe(1.009);
       });
     });
 
     describe('.MEDIUM_DRY', () => {
       test('is labelled "medium dry"', () => {
-        expect(cider.sweetness.MEDIUM_DRY.label).toBe('medium dry');
+        expect(Cider.MEDIUM_DRY.label).toBe('medium dry');
       });
 
       test('has minSG of 1.009', () => {
-        expect(cider.sweetness.MEDIUM_DRY.minSG).toBe(1.009);
+        expect(Cider.MEDIUM_DRY.minSG.magnitude).toBe(1.009);
       });
 
       test('has maxSG of 1.015', () => {
-        expect(cider.sweetness.MEDIUM_DRY.maxSG).toBe(1.015);
+        expect(Cider.MEDIUM_DRY.maxSG.magnitude).toBe(1.015);
       });
     });
 
     describe('.MEDIUM_SWEET', () => {
       test('is labelled "medium sweet"', () => {
-        expect(cider.sweetness.MEDIUM_SWEET.label).toBe('medium sweet');
+        expect(Cider.MEDIUM_SWEET.label).toBe('medium sweet');
       });
 
       test('has minSG of 1.015', () => {
-        expect(cider.sweetness.MEDIUM_SWEET.minSG).toBe(1.015);
+        expect(Cider.MEDIUM_SWEET.minSG.magnitude).toBe(1.015);
       });
 
       test('has maxSG of 1.020', () => {
-        expect(cider.sweetness.MEDIUM_SWEET.maxSG).toBe(1.020);
+        expect(Cider.MEDIUM_SWEET.maxSG.magnitude).toBe(1.020);
       });
     });
 
     describe('.SWEET', () => {
       test('is labelled "sweet"', () => {
-        expect(cider.sweetness.SWEET.label).toBe('sweet');
+        expect(Cider.SWEET.label).toBe('sweet');
       });
 
       test('has minSG of 1.020', () => {
-        expect(cider.sweetness.SWEET.minSG).toBe(1.020);
+        expect(Cider.SWEET.minSG.magnitude).toBe(1.020);
       });
 
-      test('has maxSG of positive infinity', () => {
-        expect(cider.sweetness.SWEET.maxSG).toBe(Number.POSITIVE_INFINITY);
+      test('has null maxSG', () => {
+        expect(Cider.SWEET.maxSG).toBeNull();
       });
     });
   });
 
   describe('.classifyBySG(specificGravity)', () => {
-    test('throws a TypeError if passed a non-number', () => {
-      expect(() => cider.classifyBySG('1.005')).toThrow(TypeError);
-      expect(() => cider.classifyBySG({})).toThrow(TypeError);
-      expect(() => cider.classifyBySG([])).toThrow(TypeError);
-      expect(() => cider.classifyBySG(() => {})).toThrow(TypeError);
-    });
-
-    test('throws a RangeError if passed NaN', () => {
-      expect(() => cider.classifyBySG(Number.NaN)).toThrow(RangeError);
+    test('throws a TypeError if not passed an instance of SpecificGravity', () => {
+      expect(() => Cider.classifyBySG('1.005')).toThrow(TypeError);
+      expect(() => Cider.classifyBySG({})).toThrow(TypeError);
+      expect(() => Cider.classifyBySG([])).toThrow(TypeError);
+      expect(() => Cider.classifyBySG(() => {})).toThrow(TypeError);
     });
 
     test('throws a RangeError if passed a value less than 0.800', () => {
-      expect(cider.classifyBySG(0.800)).toBe(cider.sweetness.DRY);
-      expect(() => cider.classifyBySG(0.7999)).toThrow(RangeError);
+      expect(Cider.classifyBySG(sg(0.800))).toBe(Cider.DRY);
+      expect(() => Cider.classifyBySG(sg(0.7999))).toThrow(RangeError);
     });
 
     test('throws a RangeError if passed a value greater than 1.120', () => {
-      expect(cider.classifyBySG(1.120)).toBe(cider.sweetness.SWEET);
-      expect(() => cider.classifyBySG(1.1201)).toThrow(RangeError);
+      expect(Cider.classifyBySG(sg(1.120))).toBe(Cider.SWEET);
+      expect(() => Cider.classifyBySG(sg(1.1201))).toThrow(RangeError);
     });
 
     test('returns DRY for values of SG less than 1.004', () => {
-      expect(cider.classifyBySG(0.998)).toBe(cider.sweetness.DRY);
-      expect(cider.classifyBySG(1.000)).toBe(cider.sweetness.DRY);
-      expect(cider.classifyBySG(1.002)).toBe(cider.sweetness.DRY);
-      expect(cider.classifyBySG(1.003)).toBe(cider.sweetness.DRY);
-      expect(cider.classifyBySG(1.00399)).toBe(cider.sweetness.DRY);
-      expect(cider.classifyBySG(1.004)).not.toBe(cider.sweetness.DRY);
+      expect(Cider.classifyBySG(sg(0.998))).toBe(Cider.DRY);
+      expect(Cider.classifyBySG(sg(1.000))).toBe(Cider.DRY);
+      expect(Cider.classifyBySG(sg(1.002))).toBe(Cider.DRY);
+      expect(Cider.classifyBySG(sg(1.003))).toBe(Cider.DRY);
+      expect(Cider.classifyBySG(sg(1.00399))).toBe(Cider.DRY);
+      expect(Cider.classifyBySG(sg(1.004))).not.toBe(Cider.DRY);
     });
 
     test('returns OFF_DRY for values of SG less than 1.009', () => {
-      expect(cider.classifyBySG(1.004)).toBe(cider.sweetness.OFF_DRY);
-      expect(cider.classifyBySG(1.006)).toBe(cider.sweetness.OFF_DRY);
-      expect(cider.classifyBySG(1.008)).toBe(cider.sweetness.OFF_DRY);
-      expect(cider.classifyBySG(1.00899)).toBe(cider.sweetness.OFF_DRY);
-      expect(cider.classifyBySG(1.009)).not.toBe(cider.sweetness.OFF_DRY);
+      expect(Cider.classifyBySG(sg(1.004))).toBe(Cider.OFF_DRY);
+      expect(Cider.classifyBySG(sg(1.006))).toBe(Cider.OFF_DRY);
+      expect(Cider.classifyBySG(sg(1.008))).toBe(Cider.OFF_DRY);
+      expect(Cider.classifyBySG(sg(1.00899))).toBe(Cider.OFF_DRY);
+      expect(Cider.classifyBySG(sg(1.009))).not.toBe(Cider.OFF_DRY);
     });
 
     test('returns MEDIUM_DRY for values of SG less than 1.015', () => {
-      expect(cider.classifyBySG(1.009)).toBe(cider.sweetness.MEDIUM_DRY);
-      expect(cider.classifyBySG(1.011)).toBe(cider.sweetness.MEDIUM_DRY);
-      expect(cider.classifyBySG(1.013)).toBe(cider.sweetness.MEDIUM_DRY);
-      expect(cider.classifyBySG(1.01499)).toBe(cider.sweetness.MEDIUM_DRY);
-      expect(cider.classifyBySG(1.015)).not.toBe(cider.sweetness.MEDIUM_DRY);
+      expect(Cider.classifyBySG(sg(1.009))).toBe(Cider.MEDIUM_DRY);
+      expect(Cider.classifyBySG(sg(1.011))).toBe(Cider.MEDIUM_DRY);
+      expect(Cider.classifyBySG(sg(1.013))).toBe(Cider.MEDIUM_DRY);
+      expect(Cider.classifyBySG(sg(1.01499))).toBe(Cider.MEDIUM_DRY);
+      expect(Cider.classifyBySG(sg(1.015))).not.toBe(Cider.MEDIUM_DRY);
     });
 
     test('returns MEDIUM_SWEET for values of SG less than 1.020', () => {
-      expect(cider.classifyBySG(1.015)).toBe(cider.sweetness.MEDIUM_SWEET);
-      expect(cider.classifyBySG(1.017)).toBe(cider.sweetness.MEDIUM_SWEET);
-      expect(cider.classifyBySG(1.019)).toBe(cider.sweetness.MEDIUM_SWEET);
-      expect(cider.classifyBySG(1.01999)).toBe(cider.sweetness.MEDIUM_SWEET);
-      expect(cider.classifyBySG(1.020)).not.toBe(cider.sweetness.MEDIUM_SWEET);
+      expect(Cider.classifyBySG(sg(1.015))).toBe(Cider.MEDIUM_SWEET);
+      expect(Cider.classifyBySG(sg(1.017))).toBe(Cider.MEDIUM_SWEET);
+      expect(Cider.classifyBySG(sg(1.019))).toBe(Cider.MEDIUM_SWEET);
+      expect(Cider.classifyBySG(sg(1.01999))).toBe(Cider.MEDIUM_SWEET);
+      expect(Cider.classifyBySG(sg(1.020))).not.toBe(Cider.MEDIUM_SWEET);
     });
 
     test('returns SWEET for values of SG greater than or equal to 1.020', () => {
-      expect(cider.classifyBySG(1.020)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.024)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.028)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.032)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.036)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.040)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.050)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.060)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.070)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.080)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.090)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.100)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.110)).toBe(cider.sweetness.SWEET);
-      expect(cider.classifyBySG(1.120)).toBe(cider.sweetness.SWEET);
+      expect(Cider.classifyBySG(sg(1.020))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.024))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.028))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.032))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.036))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.040))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.050))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.060))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.070))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.080))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.090))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.100))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.110))).toBe(Cider.SWEET);
+      expect(Cider.classifyBySG(sg(1.120))).toBe(Cider.SWEET);
     });
   });
 
   describe('.potentialAlcohol(sugarConcentration)', () => {
     test('throws a TypeError if passed a non-number', () => {
-      expect(() => cider.potentialAlcohol('10')).toThrow(TypeError);
-      expect(() => cider.potentialAlcohol({})).toThrow(TypeError);
-      expect(() => cider.potentialAlcohol([])).toThrow(TypeError);
-      expect(() => cider.potentialAlcohol(() => {})).toThrow(TypeError);
+      expect(() => Cider.potentialAlcohol('10')).toThrow(TypeError);
+      expect(() => Cider.potentialAlcohol({})).toThrow(TypeError);
+      expect(() => Cider.potentialAlcohol([])).toThrow(TypeError);
+      expect(() => Cider.potentialAlcohol(() => {})).toThrow(TypeError);
     });
 
     test('throws a RangeError if passed a value less than 0', () => {
-      expect(() => cider.potentialAlcohol(-0.01)).toThrow(RangeError);
+      expect(() => Cider.potentialAlcohol(gpL(-0.01))).toThrow(RangeError);
     });
 
     test('returns 0 when passed 0', () => {
-      expect(cider.potentialAlcohol(0)).toBe(0);
+      expect(Cider.potentialAlcohol(gpL(0)).magnitude).toBe(0);
     });
 
     test('returns 4.2% ABV when passed 70 g/L', () => {
-      expect(cider.potentialAlcohol(70)).toBe(4.2);
+      expect(Cider.potentialAlcohol(gpL(70)).magnitude).toBe(4.2);
     });
   });
 });

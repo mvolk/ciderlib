@@ -22,52 +22,60 @@
  * SOFTWARE.
  */
 
-import water from '../substances/water';
+import SpecificGravity from '../properties/SpecificGravity';
+import Temperature from '../properties/Temperature';
+import Mass from '../properties/Mass';
+import Volume from '../properties/Volume';
+import Water from '../substances/Water';
 
-/** Models a Hydrometer with a known calibration temperature. */
-export default class Hydrometer {
-  /**
-   * Constructor.
-   *
-   * @param calibrationTemperature the calibration temperature of this hydrometer in degrees
-   *                               Celsius. Hydrometers are typically calibrated at 15°C (59 °F)
-   *                               or 20°C (68°F).
-   *
-   * @throws TypeError if the calibration temperature is not of type `number`
-   * @throws RangeError if the calibration temperature is below freezing or above boiling
-   */
-  constructor(calibrationTemperature) {
-    this.referenceDensity = water.density(calibrationTemperature);
-    this.correctedReading.bind(this);
+/**
+ * Correct a hydrometer reading for temperature given the measured specific
+ * gravity of the fluid (before correcting for temperature), the temperature of the fluid, and
+ * the calibration temperature of the hydrometer.
+ */
+function correctedReading(reading, temperature, calibrationTemperature) {
+  if (!(reading instanceof SpecificGravity)) {
+    throw new TypeError('The reading must be an instance of SpecificGravity');
   }
 
-  /**
-   * Correct readings taken with this hydrometer for temperature.
-   *
-   * @param reading measured specific gravity of the fluid, before correcting for temperature
-   * @param temperature measured temperature of the fluid, in °C
-   *
-   * @throws TypeError if the reading or temperature is not of type `number`
-   * @throws RangeError if the reading is less than zero
-   * @throws RangeError if the temperature is below freezing or above boiling
-   */
-  correctedReading(reading, temperature) {
-    if (typeof reading !== 'number') {
-      throw new TypeError('The specific gravity reading must be of type "number".');
-    }
-
-    if (typeof temperature !== 'number') {
-      throw new TypeError('The temperature must be of type "number".');
-    }
-
-    if (temperature < water.FREEZING_POINT || temperature > water.BOILING_POINT) {
-      throw new RangeError('The temperature must not be less than 0°C or greater than 100°C.');
-    }
-
-    if (reading <= 0) {
-      throw new RangeError('The specific gravity reading must be greater than zero');
-    }
-
-    return (this.referenceDensity / water.density(temperature)) * reading;
+  if (!(temperature instanceof Temperature)) {
+    throw new TypeError('The temperature must be an instance of Temperature');
   }
+
+  if (!temperature.isGreaterThan(Water.FREEZING_POINT)) {
+    throw new RangeError('Unable to correct hydrometer readings taken at or below freezing.');
+  }
+
+  if (!temperature.isLessThan(Water.BOILING_POINT)) {
+    throw new RangeError('Unable to correct hydrometer readings taken at or above boiling.');
+  }
+
+  if (!(calibrationTemperature instanceof Temperature)) {
+    throw new TypeError('The calibrationTemperature must be an instance of Temperature');
+  }
+
+  if (!calibrationTemperature.isGreaterThan(Water.FREEZING_POINT)) {
+    throw new RangeError('Hydrometers calibrated for temperatures at or below freezing are not supported.');
+  }
+
+  if (!calibrationTemperature.isLessThan(Water.BOILING_POINT)) {
+    throw new RangeError('Hydrometers calibrated for temperatures at or above boiling are not supported.');
+  }
+
+  const densityOfWaterAtCalibrationTemperature = Water
+    .density(calibrationTemperature)
+    .inUnits(Mass.GRAMS, Volume.LITERS);
+
+  const densityOfWaterAtActualTemperature = Water
+    .density(temperature)
+    .inUnits(Mass.GRAMS, Volume.LITERS);
+
+  const correctionFactor =
+    (densityOfWaterAtCalibrationTemperature / densityOfWaterAtActualTemperature);
+
+  return new SpecificGravity(correctionFactor * reading.inUnits(SpecificGravity.UNITS));
 }
+
+export default {
+  correctedReading,
+};

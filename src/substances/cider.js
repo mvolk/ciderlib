@@ -22,94 +22,89 @@
  * SOFTWARE.
  */
 
+import Mass from '../properties/Mass';
+import PercentABV from '../properties/PercentABV';
+import SpecificGravity from '../properties/SpecificGravity';
+import Volume from '../properties/Volume';
+import VolumicMass from '../properties/VolumicMass';
+
 const DRY = {
   label: 'dry',
-  minSG: Number.NEGATIVE_INFINITY,
-  maxSG: 1.004,
+  minSG: null,
+  maxSG: new SpecificGravity(1.004),
 };
 
 const OFF_DRY = {
   label: 'off dry',
-  minSG: 1.004,
-  maxSG: 1.009,
+  minSG: new SpecificGravity(1.004),
+  maxSG: new SpecificGravity(1.009),
 };
 
 const MEDIUM_DRY = {
   label: 'medium dry',
-  minSG: 1.009,
-  maxSG: 1.015,
+  minSG: new SpecificGravity(1.009),
+  maxSG: new SpecificGravity(1.015),
 };
 
 const MEDIUM_SWEET = {
   label: 'medium sweet',
-  minSG: 1.015,
-  maxSG: 1.020,
+  minSG: new SpecificGravity(1.015),
+  maxSG: new SpecificGravity(1.020),
 };
 
 const SWEET = {
   label: 'sweet',
-  minSG: 1.020,
-  maxSG: Number.POSITIVE_INFINITY,
+  minSG: new SpecificGravity(1.020),
+  maxSG: null,
 };
+
+const MINIMUM_PROBABLE_GRAVITY = new SpecificGravity(0.800);
+const MAXIMUM_PROBABLE_GRAVITY = new SpecificGravity(1.120);
 
 /**
  * Given a specific gravity, return the sweetness classification that is most likely to be used to
  * describe a hard cider with that specific gravity.
- * @param specificGravity {Number}
- * @return {object} one of DRY, OFF_DRY, MEDIUM_DRY, MEDIUM_SWEET and SWEET.
  */
 function classifyBySG(specificGravity) {
-  if (typeof specificGravity !== 'number') {
-    throw new TypeError('The specific gravity provided is not of type "number".');
+  if (!(specificGravity instanceof SpecificGravity)) {
+    throw new TypeError('Specific gravity must be an instance of SpecificGravity.');
   }
 
-  if (Number.isNaN(specificGravity)) {
-    throw new RangeError('The specific gravity value provided is not a number.');
-  }
-
-  if (specificGravity < 0.800 || specificGravity > 1.120) {
+  if (specificGravity.isLessThan(MINIMUM_PROBABLE_GRAVITY)) {
     throw new RangeError('The specific gravity value provided is improbable for hard cider.');
   }
 
-  if (specificGravity < OFF_DRY.minSG) return DRY;
-  if (specificGravity < MEDIUM_DRY.minSG) return OFF_DRY;
-  if (specificGravity < MEDIUM_SWEET.minSG) return MEDIUM_DRY;
-  if (specificGravity < SWEET.minSG) return MEDIUM_SWEET;
+  if (specificGravity.isGreaterThan(MAXIMUM_PROBABLE_GRAVITY)) {
+    throw new RangeError('The specific gravity value provided is improbable for hard cider.');
+  }
+
+  if (specificGravity.isLessThan(OFF_DRY.minSG)) return DRY;
+  if (specificGravity.isLessThan(MEDIUM_DRY.minSG)) return OFF_DRY;
+  if (specificGravity.isLessThan(MEDIUM_SWEET.minSG)) return MEDIUM_DRY;
+  if (specificGravity.isLessThan(SWEET.minSG)) return MEDIUM_SWEET;
 
   return SWEET;
 }
 
 /**
- * Obtain the amount of alcohol that will be produced if all of the given sugar is fermented out.
- * This amount is in addition to any existing alcohol in the cider. This function uses the
- * formula given by Warcollier in La Cidrerie (1928).
- * @param sugarConcentration {Number} the volumic mass concentration of sugar in cider, expressed
- *   in g/L.
- * @return {Number} the amount of alcohol, in % by volume at 20°C, that will be produced if all of
- *   the given sugar content is fermented out.
- * @throws TypeError if sugarConcentration is not of type number
- * @throws RangeError if the sugarConcentration is negative
+ * Obtain the amount of alcohol, in % by volume at 20°C, that will be produced if all of the given
+ * sugar is fermented out. This amount is in addition to any existing alcohol in the cider. This
+ * function uses the formula given by Warcollier in La Cidrerie (1928).
  */
 function potentialAlcohol(sugarConcentration) {
-  if (typeof sugarConcentration !== 'number') {
-    throw new TypeError('Sugar concentration must be of type number.');
+  if (!(sugarConcentration instanceof VolumicMass)) {
+    throw new TypeError('Sugar concentration must be expressed as a VolumicMass for calculation of potential alcohol.');
   }
 
-  if (sugarConcentration < 0) {
-    throw new RangeError('Sugar concentration cannot be less than zero.');
-  }
-
-  return (0.06 * sugarConcentration);
+  return new PercentABV((0.06 * sugarConcentration.inUnits(Mass.GRAMS, Volume.LITERS)));
 }
 
 export default {
-  sweetness: {
-    DRY,
-    OFF_DRY,
-    MEDIUM_DRY,
-    MEDIUM_SWEET,
-    SWEET,
-  },
+  DRY,
+  OFF_DRY,
+  MEDIUM_DRY,
+  MEDIUM_SWEET,
+  SWEET,
   classifyBySG,
   potentialAlcohol,
 };

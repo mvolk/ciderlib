@@ -22,111 +22,101 @@
  * SOFTWARE.
  */
 
-import units, { CELSIUS, FAHRENHEIT } from '../../src/units';
 import Hydrometer from '../../src/instruments/Hydrometer';
+import Temperature from '../../src/properties/Temperature';
+import SpecificGravity from '../../src/properties/SpecificGravity';
 
 describe('Hydrometer', () => {
-  describe('constructor(calibrationTemperature)', () => {
-    it('throws a TypeError if the calibrationTemperature is not a number', () => {
-      expect(() => new Hydrometer('23.4')).toThrowError(TypeError);
-      expect(() => new Hydrometer({})).toThrowError(TypeError);
-      expect(() => new Hydrometer([])).toThrowError(TypeError);
-      expect(() => new Hydrometer(() => {})).toThrowError(TypeError);
-    });
+  const c = value => new Temperature(value, Temperature.CELSIUS);
+  const f = value => new Temperature(value, Temperature.FAHRENHEIT);
+  const sg = value => new SpecificGravity(value);
 
-    it('throws a RangeError if the calibrationTemperature is below freezing', () => {
-      expect(() => new Hydrometer(-0.01)).toThrowError(RangeError);
-    });
-
-    it('throws a RangeError if the calibrationTemperature is above boiling', () => {
-      expect(() => new Hydrometer(100.01)).toThrowError(RangeError);
-    });
-  });
-
-  describe('correctedReading(reading, temperature)', () => {
-    const hydrometer20C = new Hydrometer(20);
+  describe('correctedReading(reading, temperature, calibrationTemperature)', () => {
     const tolerance = 0.0001;
 
-    it('throws a TypeError if the reading is not a number', () => {
-      expect(() => hydrometer20C.correctedReading('1.000', 30)).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading({}, 30)).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading([], 30)).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(() => {}, 30)).toThrowError(TypeError);
+    it('throws a TypeError if the reading is not an instance of SpecificGravity', () => {
+      expect(() => Hydrometer.correctedReading(1.000, c(50), c(50))).toThrowError(TypeError);
     });
 
-    it('throws a RangeError if the reading is 0', () => {
-      expect(() => hydrometer20C.correctedReading(0, 30)).toThrowError(RangeError);
+    it('throws a TypeError if the temperature is not an instance of Temperature', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), 50, c(50))).toThrowError(TypeError);
     });
 
-    it('throws a RangeError if the reading is negative', () => {
-      expect(() => hydrometer20C.correctedReading(-0.100, 30)).toThrowError(RangeError);
-    });
-
-    it('throws a TypeError if the temperature is not a number', () => {
-      expect(() => hydrometer20C.correctedReading(1.000, '23.4')).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(1.000, {})).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(1.000, [])).toThrowError(TypeError);
-      expect(() => hydrometer20C.correctedReading(1.000, () => {})).toThrowError(TypeError);
-    });
-
-    it('throws a RangeError if the temperature is not finite', () => {
-      expect(() => hydrometer20C.correctedReading(1.000, Number.POSITIVE_INFINITY))
-        .toThrowError(RangeError);
-      expect(() => hydrometer20C.correctedReading(1.000, Number.NEGATIVE_INFINITY))
+    it('throws a RangeError if the temperature is at freezing', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(0), c(60)))
         .toThrowError(RangeError);
     });
 
     it('throws a RangeError if the temperature is below freezing', () => {
-      expect(() => hydrometer20C.correctedReading(1.000, -0.01)).toThrowError(RangeError);
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(-0.01), c(60)))
+        .toThrowError(RangeError);
+    });
+
+    it('throws a RangeError if the temperature is at boiling', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(100), c(60))).toThrowError(RangeError);
     });
 
     it('throws a RangeError if the temperature is above boiling', () => {
-      expect(() => hydrometer20C.correctedReading(1.000, 100.01)).toThrowError(RangeError);
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(100.01), c(60)))
+        .toThrowError(RangeError);
+    });
+
+    it('throws a TypeError if the calibrationTemperature is not an instance of Temperature', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(50), 50)).toThrowError(TypeError);
+    });
+
+    it('throws a RangeError if the calibrationTemperature is at freezing', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(50), c(0))).toThrowError(RangeError);
+    });
+
+    it('throws a RangeError if the calibrationTemperature is below freezing', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(50), c(-0.01)))
+        .toThrowError(RangeError);
+    });
+
+    it('throws a RangeError if the calibrationTemperature is at boiling', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(50), c(100))).toThrowError(RangeError);
+    });
+
+    it('throws a RangeError if the calibrationTemperature is above boiling', () => {
+      expect(() => Hydrometer.correctedReading(sg(1.000), c(50), c(100.01)))
+        .toThrowError(RangeError);
     });
 
     describe('with a hydrometer calibrated at 60F', () => {
-      const hydrometer60F = new Hydrometer(units.convert(60, FAHRENHEIT).to(CELSIUS));
-
       it('returns 1.0190 ±0.0001 for a reading of 1.020 at 43°F', () => {
-        const atTemperature = units.convert(43, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.0190 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(43), f(60));
+        expect(Math.abs(1.0190 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.0193 ±0.0001 for a reading of 1.020 at 50°F', () => {
-        const atTemperature = units.convert(50, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.0193 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(50), f(60));
+        expect(Math.abs(1.0193 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.020 ±0.0001 for a reading of 1.020 at 60°F', () => {
-        const atTemperature = units.convert(60, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.020 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(60), f(60));
+        expect(Math.abs(1.020 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.0205 ±0.0001 for a reading of 1.020 at 65°F', () => {
-        const atTemperature = units.convert(65, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.0205 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(65), f(60));
+        expect(Math.abs(1.0205 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.021 ±0.0001 for a reading of 1.020 at 70°F', () => {
-        const atTemperature = units.convert(70, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.021 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(70), f(60));
+        expect(Math.abs(1.021 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.022 ±0.0001 for a reading of 1.020 at 77°F', () => {
-        const atTemperature = units.convert(77, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.022 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(77), f(60));
+        expect(Math.abs(1.022 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
 
       it('returns 1.023 ±0.0001 for a reading of 1.020 at 84°F', () => {
-        const atTemperature = units.convert(84, FAHRENHEIT).to(CELSIUS);
-        const correctedReading = hydrometer60F.correctedReading(1.020, atTemperature);
-        expect(Math.abs(1.023 - correctedReading)).toBeLessThan(tolerance);
+        const correctedReading = Hydrometer.correctedReading(sg(1.020), f(84), f(60));
+        expect(Math.abs(1.023 - correctedReading.magnitude)).toBeLessThan(tolerance);
       });
     });
   });

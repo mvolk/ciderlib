@@ -3,30 +3,10 @@
 [![Dependencies Status](https://david-dm.org/mvolk/ciderlib.svg)](https://david-dm.org/mvolk/ciderlib)
 [![Dev Dependencies Status](https://david-dm.org/mvolk/ciderlib/dev-status.svg)](https://david-dm.org/mvolk/ciderlib/?type=dev)
 
-# CiderLib v2.0.0
+# CiderLib v3.0.0
 
-JavaScript utilities and functions for hard cidermaking calculations. This library underpins the
+JavaScript utilities and functions for cidermaking calculations. This library underpins the
 functionality exposed to end users via [CiderRef](https://github.com/mvolk/ciderref).
-
-## Status
-
-This is a work in progress. Here's the task list:
-
-* [x] Project setup
-* [x] Relevant properties of water
-* [x] Conversion functions for units of measurement
-    * [x] Temperature
-    * [x] Mass
-    * [x] Volume
-    * [x] Sugar content (Brix, SG, qualitative categories)
-* [x] Hydrometer reading correction function
-* [x] Potential alcohol calculator functions
-* [ ] Volumic mass of total solids
-* [ ] Chaptalization (addition of sugar) calculator functions
-* [ ] Relevant properties of classes of apple juice
-* [ ] Sulphiting calculator
-
-Collaborators welcome.
 
 ## Installation
 
@@ -38,25 +18,42 @@ npm install ciderlib --save
 
 ### ciderlib
 
-Provides access to the entire CiderLib API via the properties below.
+Provides access to the entire CiderLib API via the named exports below.
 
-#### instruments
+#### Instruments
 
-* [**Hydrometer**](docs/hydrometer.md) - the Hydrometer API, including a class
-  to model a hydrometer of known calibration temperature and correct readings
-  for temperature.
+* [**`Hydrometer`**](./docs/instruments/Hydrometer.md) - correction of hydrometer
+  readings for temperature.
 
-#### substances
+#### Properties
 
-* [**cider**](docs/cider.md) - the cider API, including sweetness
-  classification (dry, off-dry, etc) and potential alcohol as a function of
-  sugar concentration. Valid for ciders sweet, hard and in between.
+* [**`Brix`**](docs/properties/Brix.md) - representation of Brix with functions for
+  comparison to other measurements and conversion to other properties and units.
 
-* [**water**](docs/water.md) - the water API, including boiling and freezing points
-  and density as a function of temperature.
+* [**`Mass`**](docs/properties/Mass.md) - representation of mass with units of measurement, 
+  functions for comparison to other masses and conversion to other units of measurement.
 
-#### [units](docs/units.md)
+* [**`PercentABV`**](docs/properties/PercentABV.md) - representation of %ABV with units of
+  measurement and functions for comparison to other ABVs.
 
-The units of measurement API, including all units of measurement supported by
-CiderLib and a function to obtain a unit of measurement object for a given
-unit of measurement key.
+* [**`SpecificGravity`**](docs/properties/SpecificGravity.md) - representation of specific gravity
+   with units of measurement, functions for comparison to other measurements and conversion to
+   other properties and units.
+
+* [**`Temperature`**](docs/properties/Temperature.md) - representation of temperature with units of
+  measurement,  functions for comparison to other temperatures and conversion to other units of
+  measurement.
+
+* [**`Volume`**](docs/properties/Volume.md) - representation of volume with units of measurement,
+  functions for comparison to other volumes and conversion to other units of measurement.
+
+* [**`VolumicMass`**](docs/properties/VolumicMass.md) - representation of volumic mass with units of
+  measurement, functions for comparison to other measurements and conversion to other units of
+  measurement.
+
+#### Substances
+
+* [**`Cider`**](./docs/substances/Cider.md) - sweetness classification and potential alcohol.
+
+* [**`Water`**](./docs/substances/Water.md) - boiling point, freezing point and density as a function
+  of temperature.
