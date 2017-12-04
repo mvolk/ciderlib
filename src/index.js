@@ -22,25 +22,26 @@
  * SOFTWARE.
  */
 
+import Brix from './properties/Brix';
+import Cider from './substances/Cider';
 import Hydrometer from './instruments/Hydrometer';
-import units from './units';
-import cider from './substances/cider';
-import water from './substances/water';
+import Mass from './properties/Mass';
+import PercentABV from './properties/PercentABV';
+import SpecificGravity from './properties/SpecificGravity';
+import Temperature from './properties/Temperature';
+import Volume from './properties/Volume';
+import VolumicMass from './properties/VolumicMass';
+import Water from './substances/Water';
 
 export {
-  cider,
+  Brix,
+  Cider,
   Hydrometer,
-  units,
-  water,
-};
-
-export default {
-  substances: {
-    cider,
-    water,
-  },
-  instruments: {
-    Hydrometer,
-  },
-  units,
+  Mass,
+  PercentABV,
+  SpecificGravity,
+  Temperature,
+  Volume,
+  VolumicMass,
+  Water,
 };
