@@ -1,6 +1,6 @@
 {
   "name": "ciderlib",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Utility functions for hard cider calculations",
   "keywords": [
     "cider"
