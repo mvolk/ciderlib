@@ -84,9 +84,9 @@ describe('Volume', () => {
     });
 
     it('throws a RangeError if the magnitude is infinite', () => {
-      expect(() => new Volume(Number.POSITIVE_INFINITY, Volume.MILLILITERS), Volume.CELSIUS)
+      expect(() => new Volume(Number.POSITIVE_INFINITY, Volume.MILLILITERS))
         .toThrowError(RangeError);
-      expect(() => new Volume(Number.NEGATIVE_INFINITY, Volume.MILLILITERS), Volume.CELSIUS)
+      expect(() => new Volume(Number.NEGATIVE_INFINITY, Volume.MILLILITERS))
         .toThrowError(RangeError);
     });
 
