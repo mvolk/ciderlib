@@ -76,9 +76,9 @@ export default class Brix {
       throw new RangeError('Unable to accurately calculate specific gravity for Brix values in excess of 44°Bx.');
     }
 
-    return new SpecificGravity(
-      1 + (polynomial([0, 3.8687, 0.013048, 0.0000487], this.magnitude) / 1000),
-    );
+    const degreesSG = polynomial([0, 3.8687, 0.013048, 0.0000487], this.magnitude);
+
+    return new SpecificGravity(1 + (degreesSG / 1000));
   };
 
   // Returns the magnitude of this Brix measurement in given units

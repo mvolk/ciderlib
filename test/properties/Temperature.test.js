@@ -70,11 +70,9 @@ describe('Temperature', () => {
 
     it('throws a RangeError if the magnitude is infinite', () => {
       expect(() =>
-        new Temperature(Number.POSITIVE_INFINITY, Temperature.CELSIUS), Temperature.CELSIUS)
-          .toThrowError(RangeError);
+        new Temperature(Number.POSITIVE_INFINITY, Temperature.CELSIUS)).toThrowError(RangeError);
       expect(() =>
-        new Temperature(Number.NEGATIVE_INFINITY, Temperature.CELSIUS), Temperature.CELSIUS)
-          .toThrowError(RangeError);
+        new Temperature(Number.NEGATIVE_INFINITY, Temperature.CELSIUS)).toThrowError(RangeError);
     });
   });
 

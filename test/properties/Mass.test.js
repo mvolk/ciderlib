@@ -99,10 +99,8 @@ describe('Mass', () => {
     });
 
     it('throws a RangeError if the magnitude is infinite', () => {
-      expect(() => new Mass(Number.POSITIVE_INFINITY, Mass.GRAMS), Mass.CELSIUS)
-        .toThrowError(RangeError);
-      expect(() => new Mass(Number.NEGATIVE_INFINITY, Mass.GRAMS), Mass.CELSIUS)
-        .toThrowError(RangeError);
+      expect(() => new Mass(Number.POSITIVE_INFINITY, Mass.GRAMS)).toThrowError(RangeError);
+      expect(() => new Mass(Number.NEGATIVE_INFINITY, Mass.GRAMS)).toThrowError(RangeError);
     });
 
     it('throws a RangeError if the magnitude is less than zero', () => {
