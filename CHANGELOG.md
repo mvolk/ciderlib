@@ -1,4 +1,4 @@
-# UNRELEASED
+# 3.0.0 (2017-12-03)
  
  * **[ breaking ]** `ciderlib` no longer has a default export. Use the named exports instead.
  * **[ breaking ]** `ciderlib/units` and the `units` named export of `ciderlib` have been removed.
